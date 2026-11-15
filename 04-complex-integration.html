@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 4 章　複積分與柯西定理｜留數喵的複變筆記</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-chapter="4">
+  <main class="wrap">
+    <section class="chapter-head">
+      <div class="eyebrow">CHAPTER 04</div>
+      <h1>複積分與柯西定理</h1>
+      <p>路徑積分、ML 不等式、柯西-古薩定理、柯西積分公式、劉維爾定理。</p>
+    </section>
+
+    <div class="chapter-layout">
+      <nav id="toc" class="toc" aria-label="本章目錄"><h3>本章目錄</h3><ol></ol></nav>
+
+      <div>
+        <div id="type-filter" class="type-filter" role="toolbar" aria-label="依類型篩選"></div>
+
+        <!-- ===== 卡片開始 ===== -->
+        <article class="card" id="ch4-1" data-type="定義">
+          <span class="tag">定義</span>
+          <h2>複數路徑積分與參數化</h2>
+          <p>若曲線 C 由 z(t)，a ≤ t ≤ b 參數化，則 ∫_C f(z) dz = ∫_a^b f(z(t)) z'(t) dt。</p>
+          <p>常用參數化：</p>
+          <ul>
+            <li>圓 |z − z₀| = r（逆時針）：z = z₀ + r e^{it}，0 ≤ t ≤ 2π，dz = i r e^{it} dt。</li>
+            <li>線段從 z₁ 到 z₂：z = z₁ + t(z₂ − z₁)，0 ≤ t ≤ 1。</li>
+          </ul>
+          <p>方向相反時積分變號；封閉曲線預設方向是逆時針（正方向）。</p>
+          <p>若 f 有原函數 F（F' = f），則 ∫_C f dz = F(終點) − F(起點)，與路徑無關。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>怎麼把圓上的積分參數化？</p></details>
+          <div class="chips keywords"><span class="chip">路徑積分</span><span class="chip">contour integral</span><span class="chip">參數化</span><span class="chip">線積分</span></div>
+        </article>
+
+        <article class="card" id="ch4-2" data-type="例題">
+          <span class="tag">例題</span>
+          <h2>最重要的積分：∮ (z − z₀)ⁿ dz</h2>
+          <p>設 C 是以 z₀ 為圓心、半徑 r 的逆時針圓，n 為整數，則</p>
+          <div class="formula">∮_C (z − z₀)ⁿ dz = 2πi（當 n = −1），= 0（當 n ≠ −1）。</div>
+          <p>推導：代入 z = z₀ + r e^{it}，得 i r^{n+1} ∫_0^{2π} e^{i(n+1)t} dt。n = −1 時被積分式為 1，得 2πi；其他情況積分一整個週期為 0。</p>
+          <p>這就是「為什麼留數是 a₋₁」的根本原因：羅朗級數逐項積分後，只有 (z − z₀)^{−1} 那一項會留下來。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>為什麼繞一圈積分 1/z 會得到 2πi？</p></details>
+          <div class="chips keywords"><span class="chip">基本積分</span><span class="chip">1/z</span><span class="chip">2πi</span><span class="chip">整數次方積分</span></div>
+        </article>
+
+        <article class="card" id="ch4-3" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>ML 不等式（積分估計）</h2>
+          <p>若在曲線 C 上 |f(z)| ≤ M，且 C 的長度為 L，則 |∫_C f(z) dz| ≤ M L。</p>
+          <p>用途：證明某段積分在極限下趨近 0（例如計算實積分時，大半圓上的積分 → 0）。</p>
+          <p>例：C_R 是上半圓 |z| = R，f = 1/(z² + 1)。在 C_R 上 |z² + 1| ≥ R² − 1，所以 |f| ≤ 1/(R² − 1)，L = πR，</p>
+          <div class="formula">|∫_{C_R} f dz| ≤ πR/(R² − 1) → 0（R → ∞）。</div>
+          <p>估計分母時記得用反向三角不等式取「下界」。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>計算實積分時怎麼證明大半圓那段積分趨近 0？</p></details>
+          <div class="chips keywords"><span class="chip">ML不等式</span><span class="chip">ML-inequality</span><span class="chip">估計</span><span class="chip">上界</span><span class="chip">弧長</span></div>
+        </article>
+
+        <article class="card" id="ch4-4" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>柯西-古薩定理（Cauchy–Goursat）與變形原理</h2>
+          <p>柯西-古薩定理：若 f 在簡單封閉曲線 C 及其內部都解析，則 ∮_C f(z) dz = 0。</p>
+          <p>推廣：若 f 在單連通區域 D 上解析，則 D 內任何封閉曲線的積分都是 0，且 f 在 D 中有原函數。</p>
+          <p>路徑變形原理：若 C₁ 包住 C₂（兩者同向），而 f 在兩曲線之間的環形區域（含邊界）解析，則 ∮_{C₁} f dz = ∮_{C₂} f dz。</p>
+          <p>意義：只要不跨過奇點，就可以把積分路徑隨意「捏」成方便計算的小圓。</p>
+          <p class="pitfall"><strong>⚠️ 常見錯誤</strong>f 在曲線「內部」有奇點時（例如 1/z 在 |z| = 1 內有 z = 0），不能用柯西定理說積分為 0。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>什麼情況下封閉曲線積分一定等於零？</p></details>
+          <div class="chips keywords"><span class="chip">柯西定理</span><span class="chip">Cauchy-Goursat</span><span class="chip">柯西古薩</span><span class="chip">變形原理</span><span class="chip">deformation</span><span class="chip">封閉曲線積分為零</span></div>
+        </article>
+
+        <article class="card" id="ch4-5" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>柯西積分公式與高階導數公式</h2>
+          <p>若 f 在簡單封閉曲線 C（逆時針）及其內部解析，z₀ 在 C 內部，則</p>
+          <div class="formula">f(z₀) = (1/2πi) ∮_C f(z)/(z − z₀) dz。</div>
+          <p>高階導數公式：f⁽ⁿ⁾(z₀) = (n!/2πi) ∮_C f(z)/(z − z₀)^{n+1} dz。</p>
+          <p>常用改寫：∮_C f(z)/(z − z₀)^{n+1} dz = (2πi/n!) f⁽ⁿ⁾(z₀)。</p>
+          <p>重要推論：解析函數一定無限次可微。</p>
+          <p>意義：解析函數在邊界上的值，就完全決定了它在內部的值。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>柯西積分公式在說什麼？要怎麼用它算積分？</p></details>
+          <div class="chips keywords"><span class="chip">柯西積分公式</span><span class="chip">Cauchy integral formula</span><span class="chip">高階導數</span><span class="chip">導數公式</span></div>
+        </article>
+
+        <article class="card" id="ch4-6" data-type="例題">
+          <span class="tag">例題</span>
+          <h2>例題：用柯西積分公式算積分</h2>
+          <p>例 1：∮_{|z|=2} e^z/(z − 1) dz。z₀ = 1 在圓內，f(z) = e^z 解析，答案 = 2πi · f(1) = 2πi e。</p>
+          <p>例 2：∮_{|z|=1} cos z / z³ dz。寫成 f(z)/(z − 0)^{2+1}，f = cos z，n = 2。</p>
+          <div class="formula">答案 = (2πi/2!) f''(0) = πi · (−cos 0) = −πi。</div>
+          <p>例 3：∮_{|z|=2} 1/(z² + 1) dz。兩個奇點 ±i 都在圓內，可用部分分式 1/(z²+1) = (1/2i)[1/(z − i) − 1/(z + i)]，得 (1/2i)(2πi − 2πi) = 0。</p>
+          <p>解題步驟：(1) 找出被積分函數的奇點 (2) 判斷哪些在曲線內 (3) 把「解析的部分」當成 f(z) (4) 套公式。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>cos z 除以 z 的三次方繞單位圓積分是多少？</p></details>
+          <div class="chips keywords"><span class="chip">柯西積分公式例題</span><span class="chip">e^z/(z-1)</span><span class="chip">cos z / z^3</span></div>
+        </article>
+
+        <article class="card" id="ch4-7" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>劉維爾定理與代數基本定理</h2>
+          <p>劉維爾定理：有界的整函數必為常數。</p>
+          <p>證明重點：由柯西導數公式在半徑 R 的圓上估計，|f'(z₀)| ≤ M/R，讓 R → ∞ 得 f' ≡ 0。</p>
+          <p>應用 1：sin z 是非常數整函數，所以它在 ℂ 上一定無界（和實數情況不同）。</p>
+          <p>應用 2（代數基本定理）：次數 ≥ 1 的多項式 P(z) 至少有一個複數根。反證：若 P 無根，1/P 是整函數，且 |z| → ∞ 時 1/P → 0，因此有界，由劉維爾得 1/P 為常數，矛盾。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>怎麼用劉維爾定理證明代數基本定理？</p></details>
+          <div class="chips keywords"><span class="chip">劉維爾</span><span class="chip">Liouville</span><span class="chip">有界整函數</span><span class="chip">代數基本定理</span><span class="chip">fundamental theorem of algebra</span></div>
+        </article>
+
+        <article class="card" id="ch4-8" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>最大模原理與 Morera 定理</h2>
+          <p>最大模原理：若 f 在區域 D 上解析且不是常數，則 |f(z)| 在 D 的內部取不到最大值。</p>
+          <p>有界閉區域版本：若 f 在有界閉區域 R 上連續、在內部解析，則 |f| 的最大值一定出現在 R 的邊界上。</p>
+          <p>例：|z² + 1| 在 |z| ≤ 1 上的最大值出現在 |z| = 1 上，取 z = ±1 得最大值 2。</p>
+          <p>Morera 定理（柯西定理的逆定理）：若 f 在區域 D 上連續，且 D 中每條封閉曲線的積分都為 0，則 f 在 D 上解析。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>解析函數的模在哪裡取最大值？</p></details>
+          <div class="chips keywords"><span class="chip">最大模原理</span><span class="chip">maximum modulus</span><span class="chip">Morera</span><span class="chip">摩雷拉</span></div>
+        </article>
+        <!-- ===== 卡片結束 ===== -->
+
+        <nav id="pager" class="pager" aria-label="章節切換"></nav>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>

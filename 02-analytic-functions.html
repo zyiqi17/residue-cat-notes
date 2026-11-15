@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 2 章　解析函數｜留數喵的複變筆記</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-chapter="2">
+  <main class="wrap">
+    <section class="chapter-head">
+      <div class="eyebrow">CHAPTER 02</div>
+      <h1>解析函數</h1>
+      <p>複可微的定義、柯西-黎曼方程、解析與整函數、調和函數。</p>
+    </section>
+
+    <div class="chapter-layout">
+      <nav id="toc" class="toc" aria-label="本章目錄"><h3>本章目錄</h3><ol></ol></nav>
+
+      <div>
+        <div id="type-filter" class="type-filter" role="toolbar" aria-label="依類型篩選"></div>
+
+        <!-- ===== 卡片開始 ===== -->
+        <article class="card" id="ch2-1" data-type="定義">
+          <span class="tag">定義</span>
+          <h2>複數函數的可微（複可微）</h2>
+          <p>f 在 z₀ 可微的定義：f'(z₀) = lim_{Δz→0} [f(z₀ + Δz) − f(z₀)] / Δz 存在。</p>
+          <p>關鍵差異：Δz 可以從平面上「任何方向」趨近 0，極限必須都相同。這比實數的可微嚴格很多。</p>
+          <p>判斷不可微的技巧：分別讓 Δz 沿實軸（Δz = Δx）與沿虛軸（Δz = iΔy）趨近，若兩個極限不同就不可微。</p>
+          <p>例：f(z) = z̄。沿實軸得 1，沿虛軸得 −1，所以 z̄ 在任何點都不可微，雖然它的實部、虛部都是很漂亮的多項式。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>為什麼 z bar 處處連續但處處不可微？</p></details>
+          <div class="chips keywords"><span class="chip">可微</span><span class="chip">導數</span><span class="chip">differentiable</span><span class="chip">極限</span><span class="chip">複可微</span></div>
+        </article>
+
+        <article class="card" id="ch2-2" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>柯西-黎曼方程（Cauchy–Riemann equations）</h2>
+          <p>設 f(z) = u(x, y) + i v(x, y)。</p>
+          <p>必要條件：若 f 在 z₀ = x₀ + iy₀ 可微，則在該點 u_x = v_y 且 u_y = −v_x，並且 f'(z₀) = u_x + i v_x。</p>
+          <p>充分條件：若 u, v 的一階偏導數在 z₀ 的某鄰域存在、在 z₀ 連續，且在 z₀ 滿足 CR 方程，則 f 在 z₀ 可微。</p>
+          <p>極座標形式：r u_r = v_θ，u_θ = −r v_r（r ≠ 0），此時 f'(z) = e^{−iθ}(u_r + i v_r)。</p>
+          <p class="pitfall"><strong>⚠️ 常見錯誤</strong>只驗證 CR 方程成立就說可微，卻忘了檢查偏導數連續。CR 方程只是必要條件。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>怎麼用 CR 方程判斷一個函數哪裡可微？極座標版本長怎樣？</p></details>
+          <div class="chips keywords"><span class="chip">柯西黎曼</span><span class="chip">CR方程</span><span class="chip">Cauchy-Riemann</span><span class="chip">偏導數</span><span class="chip">可微判斷</span></div>
+        </article>
+
+        <article class="card" id="ch2-3" data-type="例題">
+          <span class="tag">例題</span>
+          <h2>例題：f(z) = |z|² 只在原點可微</h2>
+          <p>f(z) = |z|² = x² + y²，所以 u = x² + y²，v = 0。</p>
+          <p>CR 方程：u_x = 2x 要等於 v_y = 0 ⇒ x = 0；u_y = 2y 要等於 −v_x = 0 ⇒ y = 0。</p>
+          <p>所以只有在 z = 0 滿足 CR 方程；又偏導數處處連續，故 f 只在 z = 0 可微，f'(0) = 0。</p>
+          <p>但「解析」要求在一個鄰域內處處可微，所以 |z|² 在任何點（包括 0）都「不解析」。</p>
+          <p>這題是考試最愛：區分「在一點可微」與「在一點解析」。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>在一點可微和在一點解析差在哪裡？</p></details>
+          <div class="chips keywords"><span class="chip">|z|^2</span><span class="chip">只在一點可微</span><span class="chip">不解析</span><span class="chip">CR方程例題</span></div>
+        </article>
+
+        <article class="card" id="ch2-4" data-type="定義">
+          <span class="tag">定義</span>
+          <h2>解析、全純與整函數</h2>
+          <p>f 在 z₀ 解析（analytic / holomorphic，全純）：f 在 z₀ 的某個鄰域內處處可微。</p>
+          <p>f 在開集 D 上解析：在 D 每一點都解析。</p>
+          <p>整函數（entire function）：在整個複數平面 ℂ 上解析，例如多項式、e^z、sin z、cos z。</p>
+          <p>奇點（singular point）：f 在 z₀ 不解析，但 z₀ 的每個鄰域內都有 f 解析的點。例如 1/z 在 z = 0。</p>
+          <p>重要事實：解析函數無限次可微，而且可以展成泰勒級數（實函數沒有這麼好的性質）。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>什麼是整函數？1/z 是整函數嗎？</p></details>
+          <div class="chips keywords"><span class="chip">解析</span><span class="chip">analytic</span><span class="chip">全純</span><span class="chip">holomorphic</span><span class="chip">整函數</span><span class="chip">entire</span><span class="chip">奇點</span></div>
+        </article>
+
+        <article class="card" id="ch2-5" data-type="定義">
+          <span class="tag">定義</span>
+          <h2>調和函數與共軛調和函數</h2>
+          <p>u(x, y) 是調和函數：二階偏導連續且滿足 Laplace 方程 u_xx + u_yy = 0。</p>
+          <p>定理：若 f = u + iv 在區域 D 上解析，則 u 和 v 都是 D 上的調和函數（由 CR 方程再微一次可得）。</p>
+          <p>共軛調和函數：若 u, v 都調和且滿足 CR 方程，則稱 v 是 u 的共軛調和函數，此時 u + iv 解析。</p>
+          <p>求法：已知 u，由 v_y = u_x 對 y 積分，再用 v_x = −u_y 決定剩下的 x 函數。</p>
+          <p>例：u = x² − y²，u_x = 2x ⇒ v = 2xy + g(x)；v_x = 2y + g'(x) = −u_y = 2y ⇒ g 為常數。所以 v = 2xy，f = z²。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>給定 u = x^2 - y^2，怎麼求它的共軛調和函數？</p></details>
+          <div class="chips keywords"><span class="chip">調和函數</span><span class="chip">harmonic</span><span class="chip">Laplace</span><span class="chip">拉普拉斯方程</span><span class="chip">共軛調和</span><span class="chip">harmonic conjugate</span></div>
+        </article>
+        <!-- ===== 卡片結束 ===== -->
+
+        <nav id="pager" class="pager" aria-label="章節切換"></nav>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>

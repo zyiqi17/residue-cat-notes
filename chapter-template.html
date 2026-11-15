@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ✏️ 改：章號、章名 -->
+  <title>第 N 章　章名｜留數喵的複變筆記</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<!-- ✏️ 改：data-chapter 填章號（數字），必須和 assets/site.js 的 CHAPTERS 一致 -->
+<body data-root="../" data-chapter="N">
+  <main class="wrap">
+    <section class="chapter-head">
+      <div class="eyebrow">CHAPTER 0N</div>
+      <h1>章名</h1>
+      <p>一句話摘要（和 CHAPTERS 的 summary 相同）</p>
+    </section>
+
+    <div class="chapter-layout">
+      <nav id="toc" class="toc" aria-label="本章目錄"><h3>本章目錄</h3><ol></ol></nav>
+
+      <div>
+        <div id="type-filter" class="type-filter" role="toolbar" aria-label="依類型篩選"></div>
+
+        <!-- ===== 卡片從這裡開始，一張 <article> = 一個觀念 ===== -->
+        <article class="card" id="chN-1" data-type="定義">
+          <span class="tag">定義</span>
+          <h2>卡片標題</h2>
+          <p>內容段落。一段只講一件事。</p>
+          <div class="formula">重要公式獨立放一行，例如 f'(z₀) = lim_{Δz→0} [f(z₀+Δz) − f(z₀)] / Δz</div>
+          <ul>
+            <li>條列項目（選用）</li>
+          </ul>
+          <p class="pitfall"><strong>⚠️ 常見錯誤</strong>（選用）學生最容易犯的錯。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>一個可以拿來考自己的問題？</p></details>
+          <div class="chips keywords"><span class="chip">關鍵字一</span><span class="chip">關鍵字二</span></div>
+        </article>
+        <!-- ===== 卡片到這裡結束 ===== -->
+
+        <nav id="pager" class="pager" aria-label="章節切換"></nav>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>

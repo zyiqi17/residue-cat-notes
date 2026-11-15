@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 5 章　級數與奇點｜留數喵的複變筆記</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-chapter="5">
+  <main class="wrap">
+    <section class="chapter-head">
+      <div class="eyebrow">CHAPTER 05</div>
+      <h1>級數與奇點</h1>
+      <p>泰勒與羅朗級數、收斂半徑、孤立奇點的三種分類、零點與極點。</p>
+    </section>
+
+    <div class="chapter-layout">
+      <nav id="toc" class="toc" aria-label="本章目錄"><h3>本章目錄</h3><ol></ol></nav>
+
+      <div>
+        <div id="type-filter" class="type-filter" role="toolbar" aria-label="依類型篩選"></div>
+
+        <!-- ===== 卡片開始 ===== -->
+        <article class="card" id="ch5-1" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>泰勒級數與收斂半徑</h2>
+          <p>泰勒定理：若 f 在圓盤 |z − z₀| &lt; R 上解析，則 f(z) = Σ_{n=0}^{∞} aₙ (z − z₀)ⁿ，其中 aₙ = f⁽ⁿ⁾(z₀)/n!。</p>
+          <p>收斂半徑的快速判斷：等於 z₀ 到 f「最近的奇點」的距離。</p>
+          <p>例：1/(1 + z²) 在 z₀ = 0 展開，最近的奇點是 ±i，所以收斂半徑 = 1。</p>
+          <p>這解釋了實數的謎題：1/(1 + x²) 在實數線上處處光滑，但它的泰勒級數只在 |x| &lt; 1 收斂，原因是複數平面上的 ±i。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>怎麼不用比值審斂法就看出收斂半徑？</p></details>
+          <div class="chips keywords"><span class="chip">泰勒級數</span><span class="chip">Taylor series</span><span class="chip">收斂半徑</span><span class="chip">radius of convergence</span><span class="chip">冪級數</span></div>
+        </article>
+
+        <article class="card" id="ch5-2" data-type="公式">
+          <span class="tag">公式</span>
+          <h2>常用的泰勒展開（必背）</h2>
+          <p>1/(1 − z) = Σ_{n=0}^{∞} zⁿ = 1 + z + z² + …，|z| &lt; 1</p>
+          <p>1/(1 + z) = Σ (−1)ⁿ zⁿ，|z| &lt; 1</p>
+          <p>e^z = Σ zⁿ/n! = 1 + z + z²/2! + …，|z| &lt; ∞</p>
+          <p>sin z = z − z³/3! + z⁵/5! − …，|z| &lt; ∞</p>
+          <p>cos z = 1 − z²/2! + z⁴/4! − …，|z| &lt; ∞</p>
+          <p>Log(1 + z) = z − z²/2 + z³/3 − …，|z| &lt; 1</p>
+          <p>技巧：大部分題目都是把式子「湊成 1/(1 − 某個東西)」，再用幾何級數，記得檢查 |某個東西| &lt; 1。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>e^z、sin z、cos z 的泰勒展開是什麼？</p></details>
+          <div class="chips keywords"><span class="chip">常用展開</span><span class="chip">幾何級數</span><span class="chip">e^z展開</span><span class="chip">sin展開</span><span class="chip">cos展開</span><span class="chip">Maclaurin</span></div>
+        </article>
+
+        <article class="card" id="ch5-3" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>羅朗級數（Laurent series）</h2>
+          <p>若 f 在環形區域 r &lt; |z − z₀| &lt; R 上解析，則 f(z) = Σ_{n=−∞}^{∞} aₙ (z − z₀)ⁿ。</p>
+          <p>負次方的部分 Σ_{n≥1} a₋ₙ (z − z₀)^{−n} 叫做主部（principal part）。</p>
+          <p>同一個函數在「不同環形區域」有不同的羅朗級數，所以題目一定要看清楚是在哪個區域展開。</p>
+          <p>係數 a₋₁ 就是留數 Res(f, z₀)（當 z₀ 是孤立奇點且環形區域是 0 &lt; |z − z₀| &lt; R 時）。</p>
+          <p>實務上幾乎不用係數積分公式，而是用部分分式＋幾何級數來湊。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>羅朗級數和泰勒級數差在哪裡？</p></details>
+          <div class="chips keywords"><span class="chip">羅朗級數</span><span class="chip">Laurent</span><span class="chip">環形區域</span><span class="chip">主部</span><span class="chip">principal part</span><span class="chip">負次方</span></div>
+        </article>
+
+        <article class="card" id="ch5-4" data-type="例題">
+          <span class="tag">例題</span>
+          <h2>例題：f(z) = 1/(z(z − 1)) 在不同區域的羅朗級數</h2>
+          <p>先部分分式：f(z) = 1/(z − 1) − 1/z。</p>
+          <p>(a) 0 &lt; |z| &lt; 1：1/(z − 1) = −1/(1 − z) = −Σ_{n≥0} zⁿ，</p>
+          <div class="formula">所以 f = −1/z − 1 − z − z² − …。在 z = 0 的留數 = −1。</div>
+          <p>(b) |z| &gt; 1：1/(z − 1) = (1/z) · 1/(1 − 1/z) = Σ_{n≥1} z^{−n}，</p>
+          <div class="formula">所以 f = Σ_{n≥2} z^{−n} = 1/z² + 1/z³ + …（1/z 項互相抵消）。</div>
+          <p>(c) 0 &lt; |z − 1| &lt; 1：令 w = z − 1，1/z = 1/(1 + w) = Σ (−1)ⁿ wⁿ，</p>
+          <div class="formula">所以 f = 1/(z − 1) − 1 + (z − 1) − (z − 1)² + …。在 z = 1 的留數 = 1。</div>
+          <p>重點：判斷要對 z 還是對 1/z 展開，看哪一個的絕對值小於 1。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>在 |z| &gt; 1 要怎麼展開 1/(z(z-1))？</p></details>
+          <div class="chips keywords"><span class="chip">羅朗級數例題</span><span class="chip">部分分式</span><span class="chip">不同環域</span><span class="chip">1/(z(z-1))</span></div>
+        </article>
+
+        <article class="card" id="ch5-5" data-type="定義">
+          <span class="tag">定義</span>
+          <h2>孤立奇點的三種分類</h2>
+          <p>看 f 在 0 &lt; |z − z₀| &lt; R 的羅朗級數主部：</p>
+          <p>(1) 可去奇點：主部沒有任何項。例：sin z / z 在 z = 0（= 1 − z²/3! + …），補定義 f(0) = 1 即解析。</p>
+          <p>(2) m 階極點：主部只有有限項，最高到 (z − z₀)^{−m}。例：1/z² 在 0 是二階極點。</p>
+          <div class="formula">判斷法：lim_{z→z₀} (z − z₀)^m f(z) 存在且不為 0。</div>
+          <p>(3) 本性奇點：主部有無限多項。例：e^{1/z} = Σ 1/(n! zⁿ) 在 z = 0。</p>
+          <p>行為差異：可去 → |f| 有界；極點 → |f| → ∞；本性奇點 → 極限不存在，且根據 Casorati–Weierstrass 定理，f 在 z₀ 附近的值可以任意接近任何複數。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>怎麼判斷一個奇點是可去、極點還是本性奇點？</p></details>
+          <div class="chips keywords"><span class="chip">孤立奇點</span><span class="chip">可去奇點</span><span class="chip">removable</span><span class="chip">極點</span><span class="chip">pole</span><span class="chip">本性奇點</span><span class="chip">essential singularity</span><span class="chip">奇點分類</span></div>
+        </article>
+
+        <article class="card" id="ch5-6" data-type="性質">
+          <span class="tag">性質</span>
+          <h2>零點的階數與極點的關係</h2>
+          <p>z₀ 是 g 的 m 階零點：g(z₀) = g'(z₀) = … = g⁽ᵐ⁻¹⁾(z₀) = 0，但 g⁽ᵐ⁾(z₀) ≠ 0。等價於 g(z) = (z − z₀)^m h(z)，h 解析且 h(z₀) ≠ 0。</p>
+          <p>規則：若 p(z₀) ≠ 0 且 z₀ 是 q 的 m 階零點，則 p/q 在 z₀ 有 m 階極點。</p>
+          <p>例：1/sin z 在 z = 0：sin 0 = 0，cos 0 = 1 ≠ 0，所以 0 是 sin z 的一階零點，1/sin z 在 0 有一階（簡單）極點。</p>
+          <p>例：(1 − cos z)/z⁴：分子在 0 是二階零點（1 − cos z = z²/2 − …），分母四階，相減得二階極點。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>1/sin z 在 z=0 是幾階極點？</p></details>
+          <div class="chips keywords"><span class="chip">零點階數</span><span class="chip">zero of order m</span><span class="chip">極點階數</span><span class="chip">1/g</span><span class="chip">階數判斷</span></div>
+        </article>
+        <!-- ===== 卡片結束 ===== -->
+
+        <nav id="pager" class="pager" aria-label="章節切換"></nav>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 6 章　留數與應用｜留數喵的複變筆記</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-chapter="6">
+  <main class="wrap">
+    <section class="chapter-head">
+      <div class="eyebrow">CHAPTER 06</div>
+      <h1>留數與應用</h1>
+      <p>留數公式、留數定理、三種實積分、Rouché 定理與解題決策流程。</p>
+    </section>
+
+    <div class="chapter-layout">
+      <nav id="toc" class="toc" aria-label="本章目錄"><h3>本章目錄</h3><ol></ol></nav>
+
+      <div>
+        <div id="type-filter" class="type-filter" role="toolbar" aria-label="依類型篩選"></div>
+
+        <!-- ===== 卡片開始 ===== -->
+        <article class="card" id="ch6-1" data-type="公式">
+          <span class="tag">公式</span>
+          <h2>留數的定義與計算公式</h2>
+          <p>定義：Res(f, z₀) = a₋₁，也就是羅朗級數中 (z − z₀)^{−1} 的係數。</p>
+          <p>公式 1（簡單極點）：Res(f, z₀) = lim_{z→z₀} (z − z₀) f(z)。</p>
+          <p>公式 2（p/q 型）：若 f = p/q，p(z₀) ≠ 0，q(z₀) = 0，q'(z₀) ≠ 0，則 Res = p(z₀)/q'(z₀)。</p>
+          <p>公式 3（m 階極點）：Res(f, z₀) = (1/(m − 1)!) · lim_{z→z₀} d^{m−1}/dz^{m−1} [ (z − z₀)^m f(z) ]。</p>
+          <p>公式 4（本性奇點）：只能直接展開羅朗級數找 a₋₁。例：Res(e^{1/z}, 0) = 1。</p>
+          <p>例：Res(e^z / z³, 0)：e^z/z³ = 1/z³ + 1/z² + 1/(2z) + …，所以留數 = 1/2（也就是 e^z 的 z² 係數）。</p>
+          <p class="pitfall"><strong>⚠️ 常見錯誤</strong>三階極點卻只微分一次、或忘了乘 1/(m−1)!。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>高階極點的留數怎麼算？</p></details>
+          <div class="chips keywords"><span class="chip">留數</span><span class="chip">residue</span><span class="chip">簡單極點</span><span class="chip">高階極點</span><span class="chip">留數公式</span><span class="chip">p/q'</span></div>
+        </article>
+
+        <article class="card" id="ch6-2" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>留數定理（Residue theorem）</h2>
+          <p>若 f 在簡單封閉曲線 C（逆時針）及其內部，除了有限個孤立奇點 z₁, …, zₙ（都在 C 內部）外都解析，則</p>
+          <div class="formula">∮_C f(z) dz = 2πi Σ_{k=1}^{n} Res(f, z_k)。</div>
+          <p>只算「在曲線內部」的奇點，外面的不用管。</p>
+          <p>它是柯西定理與柯西積分公式的總整合：沒有奇點時留數和為 0，就回到柯西定理。</p>
+          <p>例：∮_{|z|=2} e^z/(z² + 1) dz。奇點 ±i 都在圓內：</p>
+          <div class="formula">Res(i) = e^{i}/(2i)，Res(−i) = e^{−i}/(−2i)，和 = (e^{i} − e^{−i})/(2i) = sin 1。
+所以積分 = 2πi sin 1。</div>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>留數定理怎麼用？外面的奇點要算嗎？</p></details>
+          <div class="chips keywords"><span class="chip">留數定理</span><span class="chip">residue theorem</span><span class="chip">封閉曲線積分</span><span class="chip">2πi乘留數和</span></div>
+        </article>
+
+        <article class="card" id="ch6-3" data-type="方法">
+          <span class="tag">方法</span>
+          <h2>實積分第一型：∫₀^{2π} R(cosθ, sinθ) dθ</h2>
+          <p>代換 z = e^{iθ}，θ 從 0 到 2π 對應單位圓 |z| = 1 逆時針一圈：</p>
+          <div class="formula">cosθ = (z + 1/z)/2，sinθ = (z − 1/z)/(2i)，dθ = dz/(iz)。</div>
+          <p>把積分變成單位圓上的有理函數積分，再用留數定理（只算 |z| &lt; 1 內的極點）。</p>
+          <p>例：∫₀^{2π} dθ/(2 + cosθ)。代入後變成 ∮_{|z|=1} 2/(i(z² + 4z + 1)) dz。</p>
+          <div class="formula">極點 z = −2 ± √3，只有 −2 + √3 在單位圓內。
+Res = 2/(i(2z + 4)) 在 z = −2 + √3 = 1/(i√3)。
+答案 = 2πi · 1/(i√3) = 2π/√3。</div>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>0 到 2π 的三角函數積分要怎麼用留數算？</p></details>
+          <div class="chips keywords"><span class="chip">三角函數積分</span><span class="chip">單位圓代換</span><span class="chip">z=e^{iθ}</span><span class="chip">實積分</span></div>
+        </article>
+
+        <article class="card" id="ch6-4" data-type="方法">
+          <span class="tag">方法</span>
+          <h2>實積分第二型：∫_{−∞}^{∞} P(x)/Q(x) dx</h2>
+          <p>條件：P, Q 為多項式，deg Q ≥ deg P + 2，且 Q 在實軸上沒有零點。</p>
+          <p>結論：∫_{−∞}^{∞} P/Q dx = 2πi · Σ（上半平面極點的留數）。</p>
+          <p>理由：取線段 [−R, R] 加上上半圓 C_R 圍成的封閉曲線，用 ML 不等式證明 C_R 上的積分 → 0。</p>
+          <p>例 1：∫ dx/(x² + 1)。上半平面極點 i，Res = 1/(2i)，答案 = 2πi/(2i) = π。</p>
+          <p>例 2：∫ dx/(x⁴ + 1)。上半平面極點 e^{iπ/4}、e^{3iπ/4}，Res = 1/(4z³) = −z/4，</p>
+          <div class="formula">和 = −(e^{iπ/4} + e^{3iπ/4})/4 = −i√2/4，答案 = 2πi · (−i√2/4) = π/√2。</div>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>從負無窮到正無窮的有理函數積分怎麼算？</p></details>
+          <div class="chips keywords"><span class="chip">瑕積分</span><span class="chip">有理函數積分</span><span class="chip">上半平面</span><span class="chip">大半圓</span><span class="chip">improper integral</span></div>
+        </article>
+
+        <article class="card" id="ch6-5" data-type="方法">
+          <span class="tag">方法</span>
+          <h2>實積分第三型：傅立葉型積分與 Jordan 引理</h2>
+          <p>目標：∫_{−∞}^{∞} P(x)/Q(x) · cos(ax) dx 或 sin(ax) dx，a &gt; 0。</p>
+          <p>做法：改算 ∫ P/Q · e^{iax} dx，再取實部（cos）或虛部（sin）。</p>
+          <p>注意：不能直接用 cos(az)，因為 cos z 在上半平面會爆掉；e^{iaz} 在上半平面 |e^{iaz}| = e^{−ay} ≤ 1。</p>
+          <p>條件放寬為 deg Q ≥ deg P + 1，此時用 Jordan 引理證明大半圓上的積分 → 0。</p>
+          <p>例：∫_{−∞}^{∞} cos x/(x² + 1) dx。考慮 e^{iz}/(z² + 1)，上半平面極點 i，Res = e^{−1}/(2i)。</p>
+          <div class="formula">∫ e^{ix}/(x² + 1) dx = 2πi · e^{−1}/(2i) = π/e，取實部得答案 π/e。</div>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>有 cos x 的瑕積分為什麼要換成 e^{iz}？</p></details>
+          <div class="chips keywords"><span class="chip">傅立葉積分</span><span class="chip">cos ax</span><span class="chip">sin ax</span><span class="chip">Jordan引理</span><span class="chip">Jordan's lemma</span><span class="chip">e^{iaz}</span></div>
+        </article>
+
+        <article class="card" id="ch6-6" data-type="定理">
+          <span class="tag">定理</span>
+          <h2>輻角原理與 Rouché 定理（數零點）</h2>
+          <p>輻角原理：若 f 在 C 上及內部除了有限個極點外解析，且在 C 上無零點與極點，則</p>
+          <div class="formula">(1/2πi) ∮_C f'(z)/f(z) dz = Z − P（Z = 內部零點數、P = 極點數，都按重數計）。</div>
+          <p>Rouché 定理：若 f, g 在 C 上及內部解析，且在 C 上 |g(z)| &lt; |f(z)|，則 f 與 f + g 在 C 內部零點個數相同。</p>
+          <p>口訣：「大的那個說了算」—— 把多項式拆成在曲線上「最大的項」f 和「其他項」g。</p>
+          <p>例：z⁵ + 3z + 1。</p>
+          <div class="formula">在 |z| = 2：取 f = z⁵，|f| = 32 &gt; |3z + 1| ≤ 7，所以 |z| &lt; 2 內有 5 個零點。
+在 |z| = 1：取 f = 3z，|f| = 3 &gt; |z⁵ + 1| ≤ 2，所以 |z| &lt; 1 內有 1 個零點。
+結論：1 &lt; |z| &lt; 2 內有 4 個零點。</div>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>怎麼用 Rouché 定理判斷多項式在某個圓內有幾個根？</p></details>
+          <div class="chips keywords"><span class="chip">輻角原理</span><span class="chip">argument principle</span><span class="chip">Rouché</span><span class="chip">數零點</span><span class="chip">零點個數</span></div>
+        </article>
+
+        <article class="card" id="ch6-7" data-type="方法">
+          <span class="tag">方法</span>
+          <h2>解題決策流程：看到 ∮_C f(z) dz 該怎麼做？</h2>
+          <p>步驟 1：找出 f 所有的奇點。</p>
+          <p>步驟 2：判斷每個奇點在 C 的內部還是外部（畫圖！）。</p>
+          <p>步驟 3：</p>
+          <ul>
+            <li>內部沒有奇點 → 柯西-古薩定理，答案 0。</li>
+            <li>f 可寫成 g(z)/(z − z₀)^{n+1}，g 在內部解析 → 柯西積分公式或高階導數公式。</li>
+            <li>內部有好幾個奇點，或奇點類型複雜 → 留數定理，逐一計算留數。</li>
+            <li>內部是本性奇點（如 e^{1/z}）→ 直接展開羅朗級數找 a₋₁。</li>
+          </ul>
+          <p>步驟 4：最後檢查方向（順時針要加負號）與 2πi 有沒有乘到。</p>
+          <details class="practice"><summary>🧠 自我檢測</summary><p>看到一個封閉曲線積分，要怎麼決定用柯西公式還是留數定理？</p></details>
+          <div class="chips keywords"><span class="chip">解題流程</span><span class="chip">怎麼選方法</span><span class="chip">積分策略</span><span class="chip">考試技巧</span></div>
+        </article>
+        <!-- ===== 卡片結束 ===== -->
+
+        <nav id="pager" class="pager" aria-label="章節切換"></nav>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>
