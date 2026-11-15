@@ -2,7 +2,7 @@
 
 把「複變函數」整理成一張張**知識卡片**的筆記網站，用來上課複習與考前速查。
 
-🔗 **網站：** `https://你的帳號.github.io/residue-cat-notes/`（上傳後請改成自己的網址）
+🔗 **網站：** https://zyiqi17.github.io/residue-cat-notes/
 
 ## 特色
 
